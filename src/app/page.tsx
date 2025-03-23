@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import PeopleTab from './components/PeopleTab';
-import TicketsTab from './components/TicketsTab';
+import PeoplePage from './components/pages/PeoplePage';
+import TicketsPage from './components/pages/TicketsPage';
 
 export default function Home() {
   const [currentTab, setCurrentTab] = useState(0);
@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div>
       <header className="header">
-        <h1>MY App</h1>
+        <h1>My App</h1>
       </header>
 
       <div className="tabs">
@@ -23,8 +23,8 @@ export default function Home() {
       </div>
 
       <main className="container">
-        {currentTab === 0 && <TicketsTab />}
-        {currentTab === 1 && <PeopleTab />}
+        {currentTab === 0 && <TicketsPage />}
+        {currentTab === 1 && <PeoplePage />}
       </main>
     </div>
   );

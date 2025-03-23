@@ -1,11 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Ticket } from '../../backend/types';
-import AddTicketDialog from './AddTicketDialog';
-import TicketCard from './TicketCard';
+import { Ticket } from '../../../backend/types';
+import AddTicketDialog from '../AddTicketDialog';
+import TicketCard from '../cards/TicketCard';
+import { getTickets } from '@/app/api/TicketApi';
+import { ButtonType } from '../buttons/Button';
+import { Button } from '../buttons/Button';
+import styles from './page.module.css';
 
-export default function TicketsTab() {
+export default function TicketsPage() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
@@ -15,16 +19,12 @@ export default function TicketsTab() {
 
   const fetchTickets = async () => {
     try {
-      const response = await fetch('http://localhost:3001/tickets');
-      const data = await response.json();
-      setTickets(data);
+      const ticket = await getTickets();
+      setTickets(ticket);
     } catch (error) {
+      // TODO: error popup
       console.error('Error fetching tickets:', error);
     }
-  };
-
-  const handleAddTicket = () => {
-    setIsAddDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
@@ -33,20 +33,18 @@ export default function TicketsTab() {
   };
 
   return (
-    <div>
-      <div style={{ textAlign: 'right', marginBottom: '1rem' }}>
-        <button className="button" onClick={handleAddTicket}>
-          Add Ticket
-        </button>
+    <>
+      <div className={styles.pageHeader}>
+        <Button type={ButtonType.PRIMARY} text="Add Ticket" onClick={() => setIsAddDialogOpen(true)} />
       </div>
 
-      <div className="grid">
+      <div className={styles.grid}>
         {tickets.map((ticket) => (
           <TicketCard key={ticket.id} ticket={ticket} onUpdate={fetchTickets} />
         ))}
       </div>
 
       {isAddDialogOpen && <AddTicketDialog onClose={handleCloseDialog} />}
-    </div>
+    </>
   );
 }

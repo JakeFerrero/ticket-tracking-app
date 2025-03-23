@@ -1,0 +1,20 @@
+.card {
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  padding: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader {
+  margin-bottom: 0.5rem;
+}
+
+.cardContent {
+  margin-bottom: 1rem;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

@@ -1,11 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Person } from '../../backend/types';
-import AddPersonDialog from './AddPersonDialog';
-import PersonCard from './PersonCard';
+import { Person } from '../../../backend/types';
+import { getPeople } from '../../api/PersonApi';
+import AddPersonDialog from '../AddPersonDialog';
+import { Button, ButtonType } from '../buttons/Button';
+import PersonCard from '../cards/PersonCard';
+import styles from './page.module.css';
 
-export default function PeopleTab() {
+export default function PeoplePage() {
   const [people, setPeople] = useState<Person[]>([]);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
@@ -15,16 +18,12 @@ export default function PeopleTab() {
 
   const fetchPeople = async () => {
     try {
-      const response = await fetch('http://localhost:3001/people');
-      const data = await response.json();
-      setPeople(data);
+      const ppl = await getPeople();
+      setPeople(ppl);
     } catch (error) {
+      // TODO: error popup
       console.error('Error fetching people:', error);
     }
-  };
-
-  const handleAddPerson = () => {
-    setIsAddDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
@@ -33,20 +32,18 @@ export default function PeopleTab() {
   };
 
   return (
-    <div>
-      <div style={{ textAlign: 'right', marginBottom: '1rem' }}>
-        <button className="button" onClick={handleAddPerson}>
-          Add Person
-        </button>
+    <>
+      <div className={styles.pageHeader}>
+        <Button type={ButtonType.PRIMARY} text="Add Person" onClick={() => setIsAddDialogOpen(true)} />
       </div>
 
-      <div className="grid">
+      <div className={styles.grid}>
         {people.map((person) => (
           <PersonCard key={person.id} person={person} onUpdate={fetchPeople} />
         ))}
       </div>
 
       {isAddDialogOpen && <AddPersonDialog onClose={handleCloseDialog} />}
-    </div>
+    </>
   );
 }

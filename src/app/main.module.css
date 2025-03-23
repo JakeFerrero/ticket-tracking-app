@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
+  overflow: hidden;
+}
+
+.header {
+  top: 0;
+  position: sticky;
+  z-index: 10;
+
+  background-color: var(--background-color);
+
+  padding: 1rem;
+
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.content {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 80%;
+  height: 100%;
+  overflow: hidden;
+
+  margin: 0 auto;
+
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.pageWrapper {
+  height: 100%;
+  overflow: hidden;
+}

@@ -32,18 +32,20 @@ export default function PeoplePage() {
   };
 
   return (
-    <>
+    <div className={styles.pageContainer}>
       <div className={styles.pageHeader}>
         <Button type={ButtonType.PRIMARY} text="Add Person" onClick={() => setIsAddDialogOpen(true)} />
       </div>
 
-      <div className={styles.grid}>
-        {people.map((person) => (
-          <PersonCard key={person.id} person={person} onUpdate={fetchPeople} />
-        ))}
-      </div>
+      <div className={styles.pageContent}>
+        <div className={styles.grid}>
+          {people.map((person) => (
+            <PersonCard key={person.id} person={person} onUpdate={fetchPeople} />
+          ))}
+        </div>
 
-      {isAddDialogOpen && <AddPersonDialog onClose={handleCloseDialog} />}
-    </>
+        {isAddDialogOpen && <AddPersonDialog onClose={handleCloseDialog} />}
+      </div>
+    </div>
   );
 }

@@ -1,12 +1,11 @@
 'use client';
 
+import { getTickets } from '@/app/api/TicketApi';
 import { useEffect, useState } from 'react';
 import { Ticket } from '../../../backend/types';
 import AddTicketDialog from '../AddTicketDialog';
+import { Button, ButtonType } from '../buttons/Button';
 import TicketCard from '../cards/TicketCard';
-import { getTickets } from '@/app/api/TicketApi';
-import { ButtonType } from '../buttons/Button';
-import { Button } from '../buttons/Button';
 import styles from './page.module.css';
 
 export default function TicketsPage() {
@@ -33,18 +32,20 @@ export default function TicketsPage() {
   };
 
   return (
-    <>
+    <div className={styles.pageContainer}>
       <div className={styles.pageHeader}>
         <Button type={ButtonType.PRIMARY} text="Add Ticket" onClick={() => setIsAddDialogOpen(true)} />
       </div>
 
-      <div className={styles.grid}>
-        {tickets.map((ticket) => (
-          <TicketCard key={ticket.id} ticket={ticket} onUpdate={fetchTickets} />
-        ))}
-      </div>
+      <div className={styles.pageContent}>
+        <div className={styles.grid}>
+          {tickets.map((ticket) => (
+            <TicketCard key={ticket.id} ticket={ticket} onUpdate={fetchTickets} />
+          ))}
+        </div>
 
-      {isAddDialogOpen && <AddTicketDialog onClose={handleCloseDialog} />}
-    </>
+        {isAddDialogOpen && <AddTicketDialog onClose={handleCloseDialog} />}
+      </div>
+    </div>
   );
 }

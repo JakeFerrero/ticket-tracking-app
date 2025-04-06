@@ -4,7 +4,7 @@ import { deleteTicket } from '@/app/api/TicketApi';
 import { useState } from 'react';
 import { Ticket } from '../../../backend/types';
 import { Button, ButtonClass } from '../buttons/Button';
-import EditTicketModal from '../modals/tickets/EditTicketModal';
+import TicketSidePanel from '../sidePanel/tickets/TicketSidePanel';
 import { getUserFacingTicketStatus } from '../utils/TicketStatusMap';
 import styles from './card.module.css';
 
@@ -14,7 +14,7 @@ interface TicketCardProps {
 }
 
 export default function TicketCard({ ticket, onUpdate }: TicketCardProps) {
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
 
   const handleDelete = async () => {
     if (!confirm('Are you sure you want to delete this ticket?')) return;
@@ -46,16 +46,16 @@ export default function TicketCard({ ticket, onUpdate }: TicketCardProps) {
       </div>
 
       <div className={styles.cardFooter}>
-        <Button buttonClass={ButtonClass.SECONDARY} text="Edit" onClick={() => setIsEditDialogOpen(true)} />
+        <Button buttonClass={ButtonClass.SECONDARY} text="Edit" onClick={() => setIsSidePanelOpen(true)} />
         <Button buttonClass={ButtonClass.ALERT} text="Delete" onClick={handleDelete} />
       </div>
 
-      {isEditDialogOpen && (
-        <EditTicketModal
+      {isSidePanelOpen && (
+        <TicketSidePanel
           ticket={ticket}
+          onUpdate={onUpdate}
           onClose={() => {
-            setIsEditDialogOpen(false);
-            onUpdate();
+            setIsSidePanelOpen(false);
           }}
         />
       )}

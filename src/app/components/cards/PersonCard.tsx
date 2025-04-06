@@ -4,7 +4,7 @@ import { deletePerson } from '@/app/api/PersonApi';
 import { useState } from 'react';
 import { Person } from '../../../backend/types';
 import { Button, ButtonClass } from '../buttons/Button';
-import EditPersonModal from '../modals/person/EditPersonModal';
+import EditPersonModal from '../sidePanel/person/PersonSidePanel';
 import styles from './card.module.css';
 
 interface PersonCardProps {
@@ -45,9 +45,9 @@ export default function PersonCard({ person, onUpdate }: PersonCardProps) {
       {isEditDialogOpen && (
         <EditPersonModal
           person={person}
+          onUpdate={onUpdate}
           onClose={() => {
             setIsEditDialogOpen(false);
-            onUpdate();
           }}
         />
       )}

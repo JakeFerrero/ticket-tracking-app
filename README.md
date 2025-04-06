@@ -17,7 +17,6 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## TODO
-1. remove edit modals and make them side panels
 1. implement features w/ AI - see how long this takes
 1. implement light/dark mode w/ AI - see how long this takes
 1. real css

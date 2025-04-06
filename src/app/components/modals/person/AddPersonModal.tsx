@@ -27,7 +27,12 @@ export default function AddPersonModal({ onClose }: AddPersonModalProps) {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
-        <h2>Add New Person</h2>
+        <div className={styles.modalHeader}>
+          <h2>Add New Person</h2>
+          <button className={styles.closeButton} onClick={onClose}>
+            <img src="/close.svg" alt="Close" />
+          </button>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className={styles.modalFormGroup}>
             <label htmlFor="name">Name:</label>

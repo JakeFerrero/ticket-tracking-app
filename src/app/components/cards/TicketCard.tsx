@@ -1,11 +1,11 @@
 'use client';
 
+import { deleteTicket } from '@/app/api/TicketApi';
 import { useState } from 'react';
 import { Ticket } from '../../../backend/types';
-import EditTicketDialog from '../EditTicketDialog';
-import { deleteTicket } from '@/app/api/TicketApi';
-import { ButtonType } from '../buttons/Button';
-import { Button } from '../buttons/Button';
+import { Button, ButtonClass } from '../buttons/Button';
+import EditTicketModal from '../modals/tickets/EditTicketModal';
+import { getUserFacingTicketStatus } from '../utils/TicketStatusMap';
 import styles from './card.module.css';
 
 interface TicketCardProps {
@@ -36,7 +36,7 @@ export default function TicketCard({ ticket, onUpdate }: TicketCardProps) {
     <div className={styles.card}>
       <div className={styles.cardHeader}>
         <h3>{ticket.name}</h3>
-        <div style={{ color: '#666' }}>Status: {ticket.status}</div>
+        <div style={{ color: '#666' }}>Status: {getUserFacingTicketStatus(ticket.status)}</div>
       </div>
 
       <div className={styles.cardContent}>
@@ -46,12 +46,12 @@ export default function TicketCard({ ticket, onUpdate }: TicketCardProps) {
       </div>
 
       <div className={styles.cardFooter}>
-        <Button type={ButtonType.SECONDARY} text="Edit" onClick={() => setIsEditDialogOpen(true)} />
-        <Button type={ButtonType.ALERT} text="Delete" onClick={handleDelete} />
+        <Button buttonClass={ButtonClass.SECONDARY} text="Edit" onClick={() => setIsEditDialogOpen(true)} />
+        <Button buttonClass={ButtonClass.ALERT} text="Delete" onClick={handleDelete} />
       </div>
 
       {isEditDialogOpen && (
-        <EditTicketDialog
+        <EditTicketModal
           ticket={ticket}
           onClose={() => {
             setIsEditDialogOpen(false);

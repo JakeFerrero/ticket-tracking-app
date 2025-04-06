@@ -4,11 +4,19 @@ export interface Person {
   role: string;
 }
 
+export const TicketStatus = {
+  UNASSIGNED: 'UNASSIGNED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  WONT_DO: 'WONT_DO',
+} as const;
+export type TicketStatus = (typeof TicketStatus)[keyof typeof TicketStatus];
+
 export interface Ticket {
   id: string;
   name: string;
   description: string;
-  status: 'UNASSIGNED' | 'IN_PROGRESS' | 'COMPLETED' | 'WONT_DO';
+  status: TicketStatus;
   assignee: Person | undefined;
   due: Date | undefined;
 }

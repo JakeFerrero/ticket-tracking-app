@@ -1,4 +1,4 @@
-import { Person } from "@/backend/types";
+import { CreatePersonDto, UpdatePersonDto, Person } from "@/backend/types";
 
 export async function deletePerson(id: string): Promise<boolean> {
   const response = await fetch(`http://localhost:3001/people/${id}`, {
@@ -17,17 +17,23 @@ export async function getPersonById(id: string): Promise<Person> {
   return response.json();
 }
 
-export async function createPerson(person: Person): Promise<Person> {
+export async function createPerson(person: CreatePersonDto): Promise<Person> {
   const response = await fetch('http://localhost:3001/people', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify(person),
   });
   return response.json();
 }
 
-export async function updatePerson(person: Person): Promise<Person> {
-  const response = await fetch(`http://localhost:3001/people/${person.id}`, {
+export async function updatePerson(id: string, person: UpdatePersonDto): Promise<Person> {
+  const response = await fetch(`http://localhost:3001/people/${id}`, {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify(person),
   });
   return response.json();

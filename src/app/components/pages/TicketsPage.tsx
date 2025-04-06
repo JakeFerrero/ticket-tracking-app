@@ -3,8 +3,8 @@
 import { getTickets } from '@/app/api/TicketApi';
 import { useEffect, useState } from 'react';
 import { Ticket } from '../../../backend/types';
-import AddTicketDialog from '../AddTicketDialog';
-import { Button, ButtonType } from '../buttons/Button';
+import AddTicketModal from '../modals/tickets/AddTicketModal';
+import { Button, ButtonClass } from '../buttons/Button';
 import TicketCard from '../cards/TicketCard';
 import styles from './page.module.css';
 
@@ -12,14 +12,18 @@ export default function TicketsPage() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
+  // TODO: search by: title
+  // TODO: filter by: status, assignee
+  // TODO: sort by: Az, due date
+
   useEffect(() => {
     fetchTickets();
   }, []);
 
   const fetchTickets = async () => {
     try {
-      const ticket = await getTickets();
-      setTickets(ticket);
+      const tickets = await getTickets();
+      setTickets(tickets);
     } catch (error) {
       // TODO: error popup
       console.error('Error fetching tickets:', error);
@@ -34,7 +38,7 @@ export default function TicketsPage() {
   return (
     <div className={styles.pageContainer}>
       <div className={styles.pageHeader}>
-        <Button type={ButtonType.PRIMARY} text="Add Ticket" onClick={() => setIsAddDialogOpen(true)} />
+        <Button buttonClass={ButtonClass.PRIMARY} text="Add Ticket" onClick={() => setIsAddDialogOpen(true)} />
       </div>
 
       <div className={styles.pageContent}>
@@ -44,7 +48,7 @@ export default function TicketsPage() {
           ))}
         </div>
 
-        {isAddDialogOpen && <AddTicketDialog onClose={handleCloseDialog} />}
+        {isAddDialogOpen && <AddTicketModal onClose={handleCloseDialog} />}
       </div>
     </div>
   );

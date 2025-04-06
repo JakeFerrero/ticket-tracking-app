@@ -9,8 +9,21 @@
   margin-bottom: 0.5rem;
 }
 
+.cardHeader h3,
+.cardHeader p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .cardContent {
   margin-bottom: 1rem;
+}
+
+.cardContent p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cardFooter {

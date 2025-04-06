@@ -36,7 +36,7 @@ export default function TicketCard({ ticket, onUpdate }: TicketCardProps) {
     <div className={styles.card}>
       <div className={styles.cardHeader}>
         <h3>{ticket.name}</h3>
-        <div style={{ color: '#666' }}>Status: {getUserFacingTicketStatus(ticket.status)}</div>
+        <p style={{ color: '#666' }}>Status: {getUserFacingTicketStatus(ticket.status)}</p>
       </div>
 
       <div className={styles.cardContent}>
